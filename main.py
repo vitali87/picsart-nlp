@@ -15,7 +15,6 @@ sentence = "I really enjoy studying at Picsart Academy"
 
 # download the required files
 nltk.download("punkt")
-
 tokens = nltk.word_tokenize(sentence)
 
 # # download the required files
@@ -98,7 +97,6 @@ pca = PCA(n_components=50)
 X_50 = pca.fit_transform(X)
 
 # Using TSNE to further reduce to 2 dimensions
-
 model_tsne = TSNE(n_components=2, random_state=0)
 Y = model_tsne.fit_transform(X_50)
 
@@ -109,3 +107,20 @@ plt.scatter(Y[:, 0], Y[:, 1], 20)
 for label, x, y in zip(labels, Y[:, 0], Y[:, 1]):
     plt.annotate(label, xy=(x, y), xytext=(0, 0), textcoords="offset points", size=10)
 plt.show()
+
+# Additional
+nltk.download('movie_reviews')
+
+positive_review_ids = nltk.corpus.movie_reviews.fileids(categories=["pos"])
+negative_review_ids = nltk.corpus.movie_reviews.fileids(categories=["neg"])
+all_review_ids = positive_review_ids + negative_review_ids
+from nltk.corpus import movie_reviews
+
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+negative_fileids = movie_reviews.fileids('neg')
+positive_fileids = movie_reviews.fileids('pos')
+
+nltk.download('vader_lexicon')
+sia = SentimentIntensityAnalyzer()
+sia.polarity_scores(movie_reviews.raw(fileids=negative_fileids[5]))
